@@ -467,7 +467,7 @@ export class Api {
         try {
             let id: string = "";
             if ("id" in oldClientOptions) id = oldClientOptions.id;
-            if ("password" in oldClientOptions) id = oldClientOptions.password;
+            if (!id && "password" in oldClientOptions) id = oldClientOptions.password;
 
             await this.post<Client>(`/updateClient/${id}`, {
                 id: oldClient.inboundId,
@@ -507,7 +507,7 @@ export class Api {
         try {
             let id = options.email;
             if ("id" in options) id = options.id;
-            if ("password" in options) id = options.password;
+            if (!id && "password" in options) id = options.password;
             await this.post(`/${client.inboundId}/delClient/${id}`);
             this.flushCache();
             this._logger.info(`Client ${clientId} deleted.`);
