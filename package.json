@@ -3,15 +3,27 @@
     "description": "This is an interface for 3x-ui panel. It will help developers to create, edit and delete inbounds and clients in a simple way.",
     "version": "2.1.1",
     "type": "module",
-    "main": "build/index.js",
-    "types": "build/index.d.ts",
+    "main": "build/cjs/index.js",
+    "module": "build/esm/index.js",
+    "exports": {
+        ".": {
+            "import": "./build/esm/index.js",
+            "require": "./build/cjs/index.js",
+            "types": "./build/esm/index.d.ts"
+        }
+    },
+    "types": "build/esm/index.d.ts",
     "author": {
         "email": "khodayari.khoram@gmail.com",
         "name": "Mehdi Khodayari",
         "url": "https://github.com/mehdikhody"
     },
     "scripts": {
-        "build": "tsc -p tsconfig.build.json && resolve-tspaths",
+        "build": "npm run build:clean && npm run build:esm && npm run build:cjs && npm run build:package-json",
+        "build:clean": "rm -rf build",
+        "build:esm": "tsc -p tsconfig.esm.json && resolve-tspaths -p tsconfig.esm.json",
+        "build:cjs": "tsc -p tsconfig.cjs.json && resolve-tspaths -p tsconfig.cjs.json",
+        "build:package-json": "node build-utils.js",
         "format": "prettier --write .",
         "test": "vitest ."
     },

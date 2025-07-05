@@ -1,0 +1,9 @@
+{
+    "extends": "./tsconfig.json",
+    "exclude": ["tests"],
+    "compilerOptions": {
+        "module": "ESNext",
+        "outDir": "build/esm",
+        "declaration": true
+    }
+}
